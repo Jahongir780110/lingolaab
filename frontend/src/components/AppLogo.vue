@@ -1,0 +1,128 @@
+<script setup>
+defineProps({
+  size: {
+    type: [Number, String],
+    default: 36
+  },
+  showText: {
+    type: Boolean,
+    default: true
+  },
+  layout: {
+    type: String,
+    default: 'horizontal' // 'horizontal' | 'vertical'
+  },
+  textColor: {
+    type: String,
+    default: 'dark' // 'dark' | 'light'
+  }
+})
+</script>
+
+<template>
+  <div class="brand-logo" :class="[layout, `theme-${textColor}`]">
+    <div class="logo-mark" :style="{ width: size + 'px', height: (size * 0.75) + 'px' }">
+      <svg viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+        <!-- Left Purple outline -->
+        <path d="M 120 28 C 95 28 50 28 40 40 C 30 52 30 110 30 125 C 30 140 45 152 70 152 C 95 152 110 152 120 152" 
+              stroke="#531D5C" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+        
+        <!-- Right Cyan outline with brain stem lobe -->
+        <path d="M 120 28 C 150 28 190 28 200 42 C 210 56 210 100 200 120 C 190 140 168 152 145 152 C 145 152 152 165 155 170" 
+              stroke="#00A8CC" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+
+        <!-- Left Purple Network Interconnections -->
+        <line x1="120" y1="28" x2="95" y2="78" stroke="#531D5C" stroke-width="9" stroke-linecap="round" />
+        <line x1="95" y1="78" x2="42" y2="70" stroke="#531D5C" stroke-width="9" stroke-linecap="round" />
+        <line x1="42" y1="70" x2="42" y2="128" stroke="#531D5C" stroke-width="9" stroke-linecap="round" />
+        <line x1="42" y1="128" x2="122" y2="148" stroke="#531D5C" stroke-width="9" stroke-linecap="round" />
+        <line x1="95" y1="78" x2="122" y2="148" stroke="#531D5C" stroke-width="9" stroke-linecap="round" />
+        <line x1="42" y1="70" x2="122" y2="148" stroke="#531D5C" stroke-width="9" stroke-linecap="round" />
+
+        <!-- Bridge and Right Cyan Network Connections -->
+        <line x1="120" y1="28" x2="152" y2="72" stroke="#00A8CC" stroke-width="9" stroke-linecap="round" />
+        <line x1="95" y1="78" x2="152" y2="72" stroke="#00A8CC" stroke-width="9" stroke-linecap="round" />
+        <line x1="152" y1="72" x2="200" y2="90" stroke="#00A8CC" stroke-width="9" stroke-linecap="round" />
+        <line x1="152" y1="72" x2="156" y2="162" stroke="#00A8CC" stroke-width="9" stroke-linecap="round" />
+        <line x1="122" y1="148" x2="156" y2="162" stroke="#00A8CC" stroke-width="9" stroke-linecap="round" />
+        <line x1="200" y1="90" x2="156" y2="162" stroke="#00A8CC" stroke-width="9" stroke-linecap="round" />
+
+        <!-- Purple Nodes -->
+        <circle cx="120" cy="28" r="14" fill="#531D5C" />
+        <circle cx="42" cy="70" r="14" fill="#531D5C" />
+        <circle cx="95" cy="78" r="13" fill="#531D5C" />
+        <circle cx="42" cy="128" r="11" fill="#531D5C" />
+        <circle cx="122" cy="148" r="15" fill="#531D5C" />
+
+        <!-- Cyan Nodes -->
+        <circle cx="152" cy="72" r="14" fill="#00A8CC" />
+        <circle cx="200" cy="90" r="14" fill="#00A8CC" />
+        <circle cx="156" cy="162" r="12" fill="#00A8CC" />
+      </svg>
+    </div>
+
+    <div v-if="showText" class="logo-typography" :style="{ fontSize: (size * 0.58) + 'px' }">
+      <span class="text-lingo">Lingo</span><span class="text-laab">Laab</span>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  user-select: none;
+}
+
+.brand-logo.horizontal {
+  flex-direction: row;
+  gap: 10px;
+}
+
+.brand-logo.vertical {
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.logo-typography {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.text-lingo {
+  color: #531D5C;
+  font-weight: 800;
+}
+
+.text-laab {
+  color: #00A8CC;
+  font-weight: 800;
+}
+
+.theme-light .text-lingo {
+  color: #F8FAFC;
+}
+
+.theme-light .text-laab {
+  color: #00E5FF;
+}
+</style>

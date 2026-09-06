@@ -21,13 +21,28 @@ const routes = [
     name: 'dashboard',
     component: () => import('../views/DashboardView.vue'),
     meta: { layout: 'dashboard' }
+  },
+  {
+    path: '/lesson',
+    name: 'lesson',
+    component: () => import('../views/LessonView.vue'),
+    meta: { layout: 'lesson' }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior() {
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth'
+      }
+    }
+    if (savedPosition) {
+      return savedPosition
+    }
     return { top: 0 }
   }
 })

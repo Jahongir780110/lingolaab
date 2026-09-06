@@ -1,416 +1,1039 @@
 <script setup>
-const features = [
+import { ref } from 'vue'
+import AppLogo from '../components/AppLogo.vue'
+
+// 6 Core Features from Image 5
+const featuresRow = [
+  {
+    icon: '📖',
+    title: 'Structured Courses',
+    desc: 'From A1 to C1, with clear lessons and smart exercises.'
+  },
   {
     icon: '📚',
-    title: 'Structured courses',
-    text: 'A1 is free. Progress level by level with courses that build on what you already know.'
+    title: 'Smart Library',
+    desc: 'Read books and articles with help in one click.'
   },
   {
     icon: '🤖',
-    title: 'AI tutor, in context',
-    text: 'Grammar explanations, essay feedback and personalized stories — generated from your real vocabulary and mistakes, not a random chatbot.'
+    title: 'AI Tutor',
+    desc: 'Get explanations, feedback, stories and exercises made for you.'
   },
   {
-    icon: '📖',
-    title: 'Living library',
-    text: 'Click any word while reading for an instant translation. New words join your personal vocabulary automatically.'
+    icon: '🎙️',
+    title: 'Speaking Practice',
+    desc: 'Join free speaking clubs or book affordable live lessons.'
   },
   {
-    icon: '🧠',
-    title: 'Knowledge that decays & recovers',
-    text: 'Every word and grammar point has a 0–100 score that weakens over time and strengthens with practice — so you always know what to review next.'
+    icon: '📈',
+    title: 'Tracks Your Progress',
+    desc: "We track what you know — and what you're forgetting."
   },
   {
-    icon: '🗣️',
-    title: 'Free speaking clubs',
-    text: 'Join peer-hosted speaking clubs for free, or book affordable small-group lessons with real teachers.'
-  },
-  {
-    icon: '💶',
-    title: 'Pay per course, not per month',
-    text: 'One-time course purchases from A2–C1, roughly €5–7 each. No subscriptions eating your wallet.'
+    icon: '💙',
+    title: 'Starts With You',
+    desc: 'We adapt to your language, goals, and learning style.'
   }
 ]
 
-const steps = [
-  { n: '01', title: 'Tell us where you\'re starting', text: 'Pick your native language, your target language and your current level.' },
-  { n: '02', title: 'Learn with everything connected', text: 'Courses, AI tutor, reading and speaking practice all update the same knowledge model.' },
-  { n: '03', title: 'Practice exactly what you\'re forgetting', text: 'LingoLaab surfaces the vocabulary and grammar your scores say are weakening.' }
-]
-
-const plans = [
-  { name: 'A1', price: 'Free', tag: 'Start free', highlight: false },
-  { name: 'A2 – C1 course', price: '€5 – €7', tag: 'One-time purchase', highlight: true },
-  { name: 'Schools', price: '€3 – €4.50 / course', tag: 'Bulk, 50+ courses', highlight: false }
+// Pricing ladder from Image 5
+const pricingTiers = [
+  { level: 'A1', price: 'Free', isFree: true },
+  { level: 'A2', price: '€5', isFree: false },
+  { level: 'B1', price: '€5', isFree: false },
+  { level: 'B2', price: '€5–€7', isFree: false },
+  { level: 'C1', price: '€5–€7', isFree: false }
 ]
 </script>
 
 <template>
-  <div class="home">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <span class="badge hero-badge">Language learning, finally connected</span>
-          <h1>Learn a language with one platform that actually knows what you know.</h1>
-          <p class="lead">
-            Courses, an AI tutor, a smart library and speaking practice — connected through
-            a single, always-updating model of your vocabulary and grammar knowledge.
+  <div class="landing-page">
+    <!-- HERO SECTION (IMAGE 5) -->
+    <section class="hero-section">
+      <div class="container hero-layout">
+        <div class="hero-left-copy">
+          <h1>Language learning made <span class="text-highlight">personal.</span></h1>
+          <p class="hero-lead">
+            Courses, AI tutor, real books and speaking practice — all in one place, personalized for you.
           </p>
-          <div class="hero-actions">
-            <RouterLink to="/register" class="btn btn-primary">Start learning free</RouterLink>
-            <RouterLink to="/dashboard" class="btn btn-outline">See a demo dashboard</RouterLink>
+
+          <div class="hero-btn-row">
+            <RouterLink to="/register" class="btn btn-primary btn-hero-cta">
+              Start learning for free →
+            </RouterLink>
+            <RouterLink to="/lesson" class="btn btn-ghost btn-see-works">
+              <span class="play-circle">▷</span> See how it works
+            </RouterLink>
           </div>
-          <div class="hero-stats">
-            <div><strong>A1</strong><span>completely free</span></div>
-            <div><strong>€50–60</strong><span>zero to C1, total</span></div>
-            <div><strong>0</strong><span>subscription fees</span></div>
+
+          <div class="hero-trust-row">
+            <div class="trust-item">
+              <span class="t-icon">🛡️</span>
+              <span>Starts in your language</span>
+            </div>
+            <div class="trust-item">
+              <span class="t-icon">🤖</span>
+              <span>AI that knows what you know</span>
+            </div>
+            <div class="trust-item">
+              <span class="t-icon">👥</span>
+              <span>Learn with real people</span>
+            </div>
           </div>
         </div>
-        <div class="hero-visual">
-          <div class="mock-card card">
-            <div class="mock-row">
-              <span>Vocabulary knowledge</span>
-              <strong>78%</strong>
+
+        <!-- HERO RIGHT VISUAL (IMAGE 5) -->
+        <div class="hero-right-visual">
+          <div class="hero-image-stage">
+            <!-- Learner Graphic Presentation -->
+            <div class="learner-canvas">
+              <div class="canvas-back-glow"></div>
+              <div class="avatar-illustration-circle">
+                <span class="learner-art-emoji">👩‍💻</span>
+              </div>
             </div>
-            <div class="mock-bar"><div class="mock-bar-fill" style="width: 78%; background: var(--wintergreen);"></div></div>
-            <div class="mock-row">
-              <span>Subordinate clauses</span>
-              <strong>42%</strong>
+
+            <!-- Floating UI Card 1: Speech Bubble -->
+            <div class="floating-chip chip-speech">
+              <div class="bubble-text">
+                <strong>Guten Morgen!</strong>
+                <small>(Good morning!)</small>
+              </div>
+              <span class="speaker-icon">🔊</span>
             </div>
-            <div class="mock-bar"><div class="mock-bar-fill" style="width: 42%; background: var(--tangerine);"></div></div>
-            <div class="mock-chip">🔥 12-day streak</div>
+
+            <!-- Floating UI Card 2: Vocabulary Circular Score -->
+            <div class="floating-card card-vocab">
+              <span class="fc-label">Vocabulary</span>
+              <div class="fc-score-ring">
+                <strong>72</strong>
+                <small>/100</small>
+              </div>
+              <span class="fc-status status-vocab">Needs practice</span>
+            </div>
+
+            <!-- Floating UI Card 3: Course Progress -->
+            <div class="floating-card card-progress">
+              <div class="fp-head">
+                <strong>A1.1 — Lesson 3</strong>
+                <span class="fp-pct">60%</span>
+              </div>
+              <div class="fp-bar">
+                <div class="fp-bar-fill" style="width: 60%;"></div>
+              </div>
+            </div>
+
+            <!-- Floating UI Card 4: Streak -->
+            <div class="floating-chip chip-streak">
+              <span>🔥</span>
+              <strong>7 day streak</strong>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PROBLEM -->
-    <section class="section problem">
-      <div class="container problem-grid">
-        <div>
-          <span class="badge badge-muted">The problem</span>
-          <h2>Learners juggle five different apps just to study one language.</h2>
-          <p>
-            One app for exercises. Another for translation. A separate platform for books.
-            A different tool for speaking practice. And none of them know what the others taught you.
-          </p>
-        </div>
-        <div class="problem-tools">
-          <span>Exercises app</span>
-          <span>Translation tool</span>
-          <span>Book platform</span>
-          <span>Speaking app</span>
-          <span>ChatGPT</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section id="features" class="section features">
+    <!-- SECTION 2: EVERYTHING YOU NEED (6 CARDS ROW, IMAGE 5) -->
+    <section class="section features-row-section">
       <div class="container">
-        <div class="section-heading">
-          <span class="badge">What's inside</span>
-          <h2>One connected learning environment</h2>
-          <p>Every feature feeds the same knowledge model, so the platform always knows what to teach you next.</p>
+        <div class="section-title-center">
+          <h2>Everything you need to learn and improve</h2>
         </div>
-        <div class="feature-grid">
-          <div class="feature-card card" v-for="f in features" :key="f.title">
-            <div class="feature-icon">{{ f.icon }}</div>
+
+        <div class="six-features-grid">
+          <div class="six-feature-card" v-for="f in featuresRow" :key="f.title">
+            <div class="feature-icon-square">
+              <span>{{ f.icon }}</span>
+            </div>
             <h3>{{ f.title }}</h3>
-            <p>{{ f.text }}</p>
+            <p>{{ f.desc }}</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- HOW IT WORKS -->
-    <section id="how-it-works" class="section how">
-      <div class="container">
-        <div class="section-heading">
-          <span class="badge">How it works</span>
-          <h2>Three steps to a personalized path</h2>
+    <!-- SECTION 3: START WHERE YOU ARE (IMAGE 5) -->
+    <section class="section adapt-section">
+      <div class="container adapt-layout">
+        <div class="adapt-copy">
+          <h2>Start where you are.<br />We adapt to you.</h2>
+          <p class="adapt-sub">
+            LingoLaab starts from your language and knowledge, and builds your path step by step.
+          </p>
+
+          <ul class="checklist-items">
+            <li>
+              <span class="check-green">✓</span>
+              <span>Explanations in your language</span>
+            </li>
+            <li>
+              <span class="check-green">✓</span>
+              <span>Personalized tasks every day</span>
+            </li>
+            <li>
+              <span class="check-green">✓</span>
+              <span>Focus on what you need most</span>
+            </li>
+            <li>
+              <span class="check-green">✓</span>
+              <span>Learn anytime, anywhere</span>
+            </li>
+          </ul>
+
+          <RouterLink to="/register" class="link-arrow-text">
+            See how it works →
+          </RouterLink>
         </div>
-        <div class="steps">
-          <div class="step" v-for="s in steps" :key="s.n">
-            <div class="step-n">{{ s.n }}</div>
-            <h3>{{ s.title }}</h3>
-            <p>{{ s.text }}</p>
+
+        <!-- Dual Device Mockup Stage (Image 5) -->
+        <div class="adapt-devices-stage">
+          <!-- Tablet / Web UI Mockup -->
+          <div class="mock-tablet-window card">
+            <div class="tablet-header">
+              <span class="dot-red"></span>
+              <span class="dot-yellow"></span>
+              <span class="dot-green"></span>
+              <span class="window-title">Your learning plan</span>
+            </div>
+
+            <div class="tablet-tasks-list">
+              <div class="tablet-task-row">
+                <span class="t-icon">📖</span>
+                <span class="t-name">Practice vocabulary</span>
+                <span class="t-day">Monday</span>
+                <span class="t-badge done">Done</span>
+              </div>
+              <div class="tablet-task-row">
+                <span class="t-icon">✍️</span>
+                <span class="t-name">Write an essay</span>
+                <span class="t-day">Today</span>
+                <span class="t-link">Start ›</span>
+              </div>
+              <div class="tablet-task-row">
+                <span class="t-icon">📋</span>
+                <span class="t-name">Lesson 4. Exercises 4–8</span>
+                <span class="t-day">Today</span>
+                <span class="t-link">Start ›</span>
+              </div>
+              <div class="tablet-task-row">
+                <span class="t-icon">📖</span>
+                <span class="t-name">Read "Der kleine Prinz"</span>
+                <span class="t-day">Wednesday</span>
+                <span class="t-link">Start ›</span>
+              </div>
+              <div class="tablet-task-row">
+                <span class="t-icon">💬</span>
+                <span class="t-name">Speaking club: Hobbies</span>
+                <span class="t-day">Thursday</span>
+                <span class="t-link">Join ›</span>
+              </div>
+            </div>
+            <div class="tablet-footer-link">View full plan</div>
+          </div>
+
+          <!-- Smartphone Mockup -->
+          <div class="mock-phone-window card">
+            <div class="phone-speaker-notch"></div>
+            <div class="phone-vocab-card">
+              <span class="p-sub">Vocabulary</span>
+              <h3>Haus</h3>
+              <span class="p-trans">house</span>
+              <span class="p-audio">🔊</span>
+
+              <div class="phone-score-box">
+                <span class="score-label">Your score</span>
+                <div class="score-circle">
+                  <strong>82</strong>
+                  <small>/100</small>
+                </div>
+                <span class="score-status">Needs practice</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PRICING -->
-    <section id="pricing" class="section pricing">
-      <div class="container">
-        <div class="section-heading">
-          <span class="badge">Pricing</span>
-          <h2>Pay for progress, not for months</h2>
-          <p>One-time course purchases instead of subscriptions. Speaking clubs are always free.</p>
+    <!-- SECTION 4: A1 IS FREE. KEEP GROWING. (IMAGE 5) -->
+    <section class="section pricing-ladder-section" id="pricing">
+      <div class="container pricing-ladder-card card">
+        <div class="ladder-left">
+          <div class="sprout-icon-circle">🌱</div>
+          <div>
+            <h3>A1 is free.<br />Keep growing.</h3>
+            <p>Start for free, then unlock more as you advance. No subscriptions — just fair, one-time course pricing.</p>
+          </div>
         </div>
-        <div class="plans">
-          <div class="plan card" :class="{ highlight: p.highlight }" v-for="p in plans" :key="p.name">
-            <span class="plan-tag">{{ p.tag }}</span>
-            <h3>{{ p.name }}</h3>
-            <div class="plan-price">{{ p.price }}</div>
+
+        <div class="ladder-tiers-row">
+          <div class="tier-col" v-for="t in pricingTiers" :key="t.level">
+            <span class="tier-level-name">{{ t.level }}</span>
+            <strong class="tier-price-val" :class="{ 'text-free': t.isFree }">{{ t.price }}</strong>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="section cta">
-      <div class="container cta-box card">
-        <div>
-          <h2>Ready to learn a language that adapts to you?</h2>
-          <p>Create your free account and start your A1 course today — no card required.</p>
+    <!-- SECTION 5: TESTIMONIAL & SOCIAL PROOF (IMAGE 5) -->
+    <section class="section proof-section">
+      <div class="container proof-grid">
+        <div class="quote-card card">
+          <div class="quote-symbol">“</div>
+          <p class="quote-text">
+            Finally, a platform that teaches me in my language and understands what I need.
+          </p>
+          <div class="quote-author">
+            <span class="author-avatar">👨</span>
+            <div>
+              <strong>Dilshod</strong>
+              <span>Uzbekistan</span>
+            </div>
+          </div>
         </div>
-        <RouterLink to="/register" class="btn btn-primary">Create free account</RouterLink>
+
+        <div class="partners-card card">
+          <span class="partners-label">Trusted by learners and schools</span>
+          <div class="partners-logos-row">
+            <div class="partner-badge goethe">GOETHE INSTITUT</div>
+            <div class="partner-badge klett">Klett</div>
+            <div class="partner-badge hueber">Hueber</div>
+            <div class="partner-badge cornelsen">Cornelsen</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: BOTTOM EXPLORE BANNER (IMAGE 5) -->
+    <section class="section bottom-banner-section">
+      <div class="container bottom-cta-bar card">
+        <div class="cta-bar-left">
+          <span class="globe-big">🌐</span>
+          <div>
+            <h3>Many languages. One personal experience.</h3>
+            <p>LingoLaab is growing together with learners around the world.</p>
+          </div>
+        </div>
+
+        <RouterLink to="/register" class="btn btn-primary btn-explore-cta">
+          Explore courses →
+        </RouterLink>
       </div>
     </section>
   </div>
 </template>
 
 <style scoped>
-.hero {
-  padding: 72px 0 56px;
-  background: linear-gradient(180deg, var(--champagne) 0%, var(--cream) 70%);
+.landing-page {
+  background: #FFFFFF;
+  color: var(--color-text-body);
 }
 
-.hero-grid {
+/* HERO SECTION (MATCHING IMAGE 5) */
+.hero-section {
+  padding: 64px 0 52px;
+  background: #FFFFFF;
+}
+
+.hero-layout {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.15fr 0.85fr;
   gap: 48px;
   align-items: center;
 }
 
-.hero-badge {
-  background: rgba(71, 139, 133, 0.15);
-  color: var(--wintergreen);
-  margin-bottom: 18px;
+.hero-left-copy h1 {
+  font-size: clamp(2.4rem, 4.2vw, 3.4rem);
+  color: var(--color-text);
+  line-height: 1.15;
+  margin-bottom: 20px;
+  font-weight: 800;
 }
 
-.hero h1 {
-  font-size: clamp(2rem, 4vw, 3rem);
+.text-highlight {
+  color: var(--color-brand-cyan);
+}
+
+.hero-lead {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 520px;
+  margin-bottom: 32px;
+}
+
+.hero-btn-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.btn-hero-cta {
+  padding: 15px 32px;
+  font-size: 1.05rem;
+}
+
+.btn-see-works {
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   color: var(--color-text);
 }
 
-.lead {
+.play-circle {
   font-size: 1.1rem;
-  max-width: 520px;
 }
 
-.hero-actions {
+.hero-trust-row {
   display: flex;
-  gap: 14px;
-  margin: 28px 0 36px;
+  gap: 24px;
   flex-wrap: wrap;
+  border-top: 1px solid var(--color-border);
+  padding-top: 24px;
 }
 
-.hero-stats {
+.trust-item {
   display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
-}
-
-.hero-stats div {
-  display: flex;
-  flex-direction: column;
-}
-
-.hero-stats strong {
-  font-size: 1.4rem;
-  color: var(--color-accent);
-}
-
-.hero-stats span {
+  align-items: center;
+  gap: 8px;
   font-size: 0.85rem;
+  font-weight: 600;
   color: var(--color-text-muted);
 }
 
-.hero-visual {
+.t-icon {
+  font-size: 1.2rem;
+}
+
+/* HERO RIGHT VISUAL STAGE (IMAGE 5) */
+.hero-right-visual {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-image-stage {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  height: 420px;
+}
+
+.learner-canvas {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.canvas-back-glow {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 168, 204, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+.avatar-illustration-circle {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #EEF2FF 0%, #E0F2FE 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #FFFFFF;
+  box-shadow: 0 16px 36px rgba(46, 16, 101, 0.08);
+}
+
+.learner-art-emoji {
+  font-size: 7rem;
+  line-height: 1;
+}
+
+/* FLOATING UI CHIPS (IMAGE 5) */
+.floating-chip {
+  position: absolute;
+  background: #FFFFFF;
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 20px rgba(46, 16, 101, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.chip-speech {
+  top: 10px;
+  left: 20px;
+}
+
+.bubble-text strong {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-text);
+}
+
+.bubble-text small {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+.speaker-icon {
+  font-size: 0.95rem;
+}
+
+.chip-streak {
+  bottom: 20px;
+  right: 10px;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #D97706;
+  font-size: 0.85rem;
+}
+
+.floating-card {
+  position: absolute;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  box-shadow: 0 10px 24px rgba(46, 16, 101, 0.08);
+  z-index: 10;
+}
+
+.card-vocab {
+  bottom: 30px;
+  left: 10px;
+  text-align: center;
+}
+
+.fc-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.fc-score-ring strong {
+  font-size: 1.6rem;
+  color: var(--color-text);
+  font-weight: 800;
+}
+
+.fc-score-ring small {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.fc-status {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-top: 4px;
+}
+.status-vocab { color: #2563EB; }
+
+.card-progress {
+  top: 50px;
+  right: -10px;
+  width: 170px;
+}
+
+.fp-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  margin-bottom: 6px;
+}
+
+.fp-head strong { color: var(--color-text); }
+.fp-pct { color: #10B981; font-weight: 800; }
+
+.fp-bar {
+  height: 6px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.fp-bar-fill {
+  height: 100%;
+  background: #10B981;
+  border-radius: var(--radius-full);
+}
+
+/* SECTION 2: 6 FEATURES ROW (IMAGE 5) */
+.features-row-section {
+  padding: 60px 0;
+  background: #FAFAFA;
+}
+
+.section-title-center {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.section-title-center h2 {
+  font-size: 2rem;
+  color: var(--color-text);
+}
+
+.six-features-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+
+.six-feature-card {
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.feature-icon-square {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-md);
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 14px;
+}
+
+.six-feature-card h3 {
+  font-size: 0.95rem;
+  margin: 0 0 6px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.six-feature-card p {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* SECTION 3: ADAPT SECTION (IMAGE 5) */
+.adapt-section {
+  padding: 80px 0;
+}
+
+.adapt-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.adapt-copy h2 {
+  font-size: clamp(2rem, 3.2vw, 2.7rem);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.adapt-sub {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  margin-bottom: 28px;
+}
+
+.checklist-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checklist-items li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.check-green {
+  color: var(--color-action-success);
+  font-weight: 800;
+}
+
+.link-arrow-text {
+  font-weight: 700;
+  color: var(--color-brand-cyan);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+/* DUAL DEVICE MOCKUP */
+.adapt-devices-stage {
+  position: relative;
   display: flex;
   justify-content: center;
 }
 
-.mock-card {
-  padding: 28px;
+.mock-tablet-window {
   width: 100%;
-  max-width: 340px;
+  max-width: 440px;
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  box-shadow: 0 20px 40px rgba(46, 16, 101, 0.08);
+  padding: 18px;
 }
 
-.mock-row {
+.tablet-header {
   display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  margin-bottom: 6px;
-}
-
-.mock-bar {
-  height: 10px;
-  border-radius: 999px;
-  background: var(--color-border);
-  overflow: hidden;
-  margin-bottom: 20px;
-}
-
-.mock-bar-fill {
-  height: 100%;
-  border-radius: 999px;
-}
-
-.mock-chip {
-  display: inline-block;
-  background: rgba(255, 141, 48, 0.15);
-  color: #b35a10;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.85rem;
-}
-
-.problem {
-  background: var(--color-surface);
-}
-
-.problem-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 40px;
   align-items: center;
-}
-
-.badge-muted {
-  background: rgba(252, 46, 21, 0.1);
-  color: var(--retro-red);
-  margin-bottom: 14px;
-}
-
-.problem-tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.problem-tools span {
-  padding: 10px 16px;
-  border-radius: 10px;
-  background: var(--cream);
-  border: 1px dashed var(--color-border);
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-  text-decoration: line-through;
-}
-
-.section-heading {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 48px;
-}
-
-.section-heading .badge {
-  background: rgba(255, 141, 48, 0.15);
-  color: #b35a10;
-  margin-bottom: 14px;
-}
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.feature-card {
-  padding: 28px;
-}
-
-.feature-icon {
-  font-size: 1.8rem;
+  gap: 6px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
   margin-bottom: 12px;
 }
 
-.how {
-  background: var(--color-surface);
+.dot-red { width: 8px; height: 8px; border-radius: 50%; background: #EF4444; }
+.dot-yellow { width: 8px; height: 8px; border-radius: 50%; background: #F59E0B; }
+.dot-green { width: 8px; height: 8px; border-radius: 50%; background: #10B981; }
+
+.window-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-left: 8px;
 }
 
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+.tablet-tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.step {
+.tablet-task-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-hover);
+  font-size: 0.8rem;
 }
 
-.step-n {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--champagne);
-  -webkit-text-stroke: 2px var(--tangerine);
-  margin-bottom: 8px;
+.t-name { flex: 1; font-weight: 600; }
+.t-day { color: var(--color-text-muted); font-size: 0.72rem; }
+
+.t-badge.done {
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: #D1FAE5;
+  color: #065F46;
+  font-weight: 700;
+  font-size: 0.7rem;
 }
 
-.plans {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+.t-link {
+  color: var(--color-brand-cyan);
+  font-weight: 700;
+  font-size: 0.75rem;
 }
 
-.plan {
-  padding: 32px 24px;
+.tablet-footer-link {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-brand-cyan);
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.mock-phone-window {
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  width: 170px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border);
+  border-radius: 24px;
+  padding: 12px;
+  box-shadow: 0 16px 36px rgba(46, 16, 101, 0.12);
+}
+
+.phone-speaker-notch {
+  width: 40px;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  margin: 0 auto 10px;
+}
+
+.phone-vocab-card {
   text-align: center;
 }
 
-.plan.highlight {
-  border-color: var(--wintergreen);
-  box-shadow: 0 12px 30px rgba(71, 139, 133, 0.25);
-  transform: scale(1.03);
-}
-
-.plan-tag {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.p-sub {
+  font-size: 0.65rem;
   color: var(--color-text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.plan-price {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--color-accent);
+.phone-vocab-card h3 {
+  font-size: 1.25rem;
+  margin: 4px 0 2px;
+}
+
+.p-trans { font-size: 0.75rem; color: var(--color-text-muted); display: block; }
+.p-audio { font-size: 0.85rem; margin: 4px 0; display: inline-block; }
+
+.phone-score-box {
+  background: var(--color-surface-hover);
+  padding: 8px;
+  border-radius: var(--radius-sm);
   margin-top: 8px;
 }
 
-.cta-box {
+.score-label { font-size: 0.62rem; color: var(--color-text-muted); display: block; }
+.score-circle strong { font-size: 1.1rem; color: var(--color-text); }
+.score-circle small { font-size: 0.65rem; color: var(--color-text-muted); }
+.score-status { font-size: 0.62rem; color: #2563EB; font-weight: 700; display: block; }
+
+/* SECTION 4: A1 IS FREE. KEEP GROWING. (IMAGE 5) */
+.pricing-ladder-section {
+  padding: 40px 0 60px;
+}
+
+.pricing-ladder-card {
+  padding: 36px 44px;
+  background: #FAFAFA;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.ladder-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 460px;
+}
+
+.sprout-icon-circle {
+  font-size: 2.5rem;
+}
+
+.ladder-left h3 {
+  font-size: 1.4rem;
+  margin: 0 0 6px;
+}
+
+.ladder-left p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+.ladder-tiers-row {
+  display: flex;
+  gap: 32px;
+}
+
+.tier-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.tier-level-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.tier-price-val {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+}
+
+.text-free {
+  color: var(--color-action-success);
+}
+
+/* SECTION 5: PROOF & TESTIMONIAL (IMAGE 5) */
+.proof-section {
+  padding: 40px 0 60px;
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 24px;
+}
+
+.quote-card {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-symbol {
+  font-size: 2.2rem;
+  color: var(--color-brand-cyan);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.quote-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.quote-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.author-avatar {
+  font-size: 1.5rem;
+}
+
+.quote-author strong {
+  display: block;
+  font-size: 0.88rem;
+}
+
+.quote-author span {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.partners-card {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.partners-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
+}
+
+.partners-logos-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.partner-badge {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.partner-badge.goethe { background: #84CC16; color: #FFFFFF; }
+.partner-badge.klett { background: #0284C7; color: #FFFFFF; }
+.partner-badge.hueber { background: #DC2626; color: #FFFFFF; }
+.partner-badge.cornelsen { background: #EF4444; color: #FFFFFF; }
+
+/* SECTION 6: BOTTOM BANNER (IMAGE 5) */
+.bottom-banner-section {
+  padding: 0 0 80px;
+}
+
+.bottom-cta-bar {
+  padding: 28px 40px;
+  border-radius: var(--radius-lg);
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 48px;
-  background: var(--wintergreen);
-  color: var(--cream);
 }
 
-.cta-box h2 {
-  color: var(--cream);
+.cta-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.cta-box p {
-  color: rgba(248, 239, 213, 0.85);
+.globe-big {
+  font-size: 2.4rem;
 }
 
-@media (max-width: 900px) {
-  .hero-grid, .problem-grid {
+.cta-bar-left h3 {
+  font-size: 1.2rem;
+  margin: 0 0 4px;
+}
+
+.cta-bar-left p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.btn-explore-cta {
+  padding: 13px 28px;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .hero-layout, .adapt-layout, .pricing-ladder-card, .proof-grid {
     grid-template-columns: 1fr;
   }
-  .feature-grid, .steps, .plans {
-    grid-template-columns: 1fr;
+  .six-features-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
-  .cta-box {
+  .bottom-cta-bar {
     flex-direction: column;
     text-align: center;
+  }
+  .cta-bar-left {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .six-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ladder-tiers-row {
+    flex-wrap: wrap;
+    gap: 16px;
   }
 }
 </style>
