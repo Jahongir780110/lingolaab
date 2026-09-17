@@ -1,54 +1,118 @@
 <script setup>
 import { ref } from 'vue'
 import AppLogo from '../components/AppLogo.vue'
+import FeatureIcon from '../components/FeatureIcon.vue'
 
-// 6 Core Features from Image 5
+// 6 Core Features with Custom Icons
 const featuresRow = [
   {
-    icon: '📖',
+    icon: 'courses',
     title: 'Structured Courses',
     desc: 'From A1 to C1, with clear lessons and smart exercises.'
   },
   {
-    icon: '📚',
+    icon: 'library',
     title: 'Smart Library',
     desc: 'Read books and articles with help in one click.'
   },
   {
-    icon: '🤖',
+    icon: 'tutor',
     title: 'AI Tutor',
     desc: 'Get explanations, feedback, stories and exercises made for you.'
   },
   {
-    icon: '🎙️',
+    icon: 'speaking',
     title: 'Speaking Practice',
     desc: 'Join free speaking clubs or book affordable live lessons.'
   },
   {
-    icon: '📈',
+    icon: 'progress',
     title: 'Tracks Your Progress',
-    desc: "We track what you know — and what you're forgetting."
+    desc: 'Intelligent review and analytics to reinforce what you learn.'
   },
   {
-    icon: '💙',
+    icon: 'personalized',
     title: 'Starts With You',
     desc: 'We adapt to your language, goals, and learning style.'
   }
 ]
 
-// Pricing ladder from Image 5
-const pricingTiers = [
-  { level: 'A1', price: 'Free', isFree: true },
-  { level: 'A2', price: '€5', isFree: false },
-  { level: 'B1', price: '€5', isFree: false },
-  { level: 'B2', price: '€5–€7', isFree: false },
-  { level: 'C1', price: '€5–€7', isFree: false }
+// 4 Course Pricing Tiers
+const pricingCards = [
+  {
+    id: 'a1',
+    title: 'A1.1 – A1.2 Courses',
+    subtitle: '12 lessons each',
+    isSubtitleHighlight: true,
+    price: '€0',
+    period: '/ free forever',
+    features: [
+      { bold: '100% Free', text: 'across all supported languages' },
+      { text: "Try & test our platform's full capabilities" },
+      { text: 'Full access to interactive starter exercises' },
+      { text: 'No subscriptions or recurring fees, ever' }
+    ],
+    buttonText: 'Try Platform Free',
+    buttonLink: '/register',
+    isPrimary: true
+  },
+  {
+    id: 'a2',
+    title: 'A2.1 – A2.2 Courses',
+    subtitle: '12 lessons each',
+    isSubtitleHighlight: false,
+    price: '€5',
+    period: '/ one-time course purchase',
+    features: [
+      { bold: 'One-time payment', text: '— zero subscriptions' },
+      { text: 'Foundational complexity' },
+      { text: 'Targeted volume of exercises & reading materials' },
+      { text: 'Full personal dictionary & library sync' }
+    ],
+    buttonText: 'Select Course',
+    buttonLink: '/register',
+    isPrimary: false
+  },
+  {
+    id: 'b1',
+    title: 'B1.1 – B1.2 Courses',
+    subtitle: '14 lessons each',
+    isSubtitleHighlight: false,
+    price: '€6',
+    period: '/ one-time course purchase',
+    features: [
+      { bold: 'One-time payment', text: '— zero subscriptions' },
+      { text: 'Moderate complexity & exercise volume' },
+      { text: 'Increased volume of exercises & reading materials' },
+      { text: 'Full personal dictionary & library sync' }
+    ],
+    buttonText: 'Select Course',
+    buttonLink: '/register',
+    isPrimary: false
+  },
+  {
+    id: 'b2-c1',
+    title: 'B2.1 – C1.3 Courses',
+    subtitle: '14–16 lessons each',
+    isSubtitleHighlight: false,
+    price: '€7',
+    period: '/ one-time course purchase',
+    features: [
+      { bold: 'One-time payment', text: '— zero subscriptions' },
+      { text: 'Contains significantly more materials & exercises' },
+      { text: 'Designed for higher linguistic complexity' },
+      { text: 'Requires deeper time investment from students' }
+    ],
+    buttonText: 'Select Course',
+    buttonLink: '/register',
+    isPrimary: false
+  }
 ]
 </script>
 
 <template>
   <div class="landing-page">
-    <!-- HERO SECTION (IMAGE 5) -->
+    <!-- HERO SECTION -->
     <section class="hero-section">
       <div class="container hero-layout">
         <div class="hero-left-copy">
@@ -59,37 +123,48 @@ const pricingTiers = [
 
           <div class="hero-btn-row">
             <RouterLink to="/register" class="btn btn-primary btn-hero-cta">
-              Start learning for free →
+              Start learning for free &rarr;
             </RouterLink>
             <RouterLink to="/lesson" class="btn btn-ghost btn-see-works">
-              <span class="play-circle">▷</span> See how it works
+              <span class="play-circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+              </span>
+              See how it works
             </RouterLink>
           </div>
 
           <div class="hero-trust-row">
             <div class="trust-item">
-              <span class="t-icon">🛡️</span>
+              <span class="t-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              </span>
               <span>Starts in your language</span>
             </div>
             <div class="trust-item">
-              <span class="t-icon">🤖</span>
-              <span>AI that knows what you know</span>
+              <span class="t-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </span>
+              <span>Personalized learning path</span>
             </div>
             <div class="trust-item">
-              <span class="t-icon">👥</span>
+              <span class="t-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </span>
               <span>Learn with real people</span>
             </div>
           </div>
         </div>
 
-        <!-- HERO RIGHT VISUAL (IMAGE 5) -->
+        <!-- HERO RIGHT VISUAL -->
         <div class="hero-right-visual">
           <div class="hero-image-stage">
             <!-- Learner Graphic Presentation -->
             <div class="learner-canvas">
               <div class="canvas-back-glow"></div>
               <div class="avatar-illustration-circle">
-                <span class="learner-art-emoji">👩‍💻</span>
+                <div class="brand-mascot-visual">
+                  <AppLogo :size="100" :show-text="false" />
+                </div>
               </div>
             </div>
 
@@ -99,7 +174,9 @@ const pricingTiers = [
                 <strong>Guten Morgen!</strong>
                 <small>(Good morning!)</small>
               </div>
-              <span class="speaker-icon">🔊</span>
+              <span class="speaker-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00A8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+              </span>
             </div>
 
             <!-- Floating UI Card 2: Vocabulary Circular Score -->
@@ -115,25 +192,19 @@ const pricingTiers = [
             <!-- Floating UI Card 3: Course Progress -->
             <div class="floating-card card-progress">
               <div class="fp-head">
-                <strong>A1.1 — Lesson 3</strong>
+                <strong>A1.1 – Lesson 3</strong>
                 <span class="fp-pct">60%</span>
               </div>
               <div class="fp-bar">
                 <div class="fp-bar-fill" style="width: 60%;"></div>
               </div>
             </div>
-
-            <!-- Floating UI Card 4: Streak -->
-            <div class="floating-chip chip-streak">
-              <span>🔥</span>
-              <strong>7 day streak</strong>
-            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 2: EVERYTHING YOU NEED (6 CARDS ROW, IMAGE 5) -->
+    <!-- SECTION 2: EVERYTHING YOU NEED (6 CARDS ROW WITH CUSTOM ICONS) -->
     <section class="section features-row-section">
       <div class="container">
         <div class="section-title-center">
@@ -143,7 +214,7 @@ const pricingTiers = [
         <div class="six-features-grid">
           <div class="six-feature-card" v-for="f in featuresRow" :key="f.title">
             <div class="feature-icon-square">
-              <span>{{ f.icon }}</span>
+              <FeatureIcon :name="f.icon" />
             </div>
             <h3>{{ f.title }}</h3>
             <p>{{ f.desc }}</p>
@@ -152,7 +223,7 @@ const pricingTiers = [
       </div>
     </section>
 
-    <!-- SECTION 3: START WHERE YOU ARE (IMAGE 5) -->
+    <!-- SECTION 3: START WHERE YOU ARE -->
     <section class="section adapt-section">
       <div class="container adapt-layout">
         <div class="adapt-copy">
@@ -181,11 +252,11 @@ const pricingTiers = [
           </ul>
 
           <RouterLink to="/register" class="link-arrow-text">
-            See how it works →
+            See how it works &rarr;
           </RouterLink>
         </div>
 
-        <!-- Dual Device Mockup Stage (Image 5) -->
+        <!-- Dual Device Mockup Stage -->
         <div class="adapt-devices-stage">
           <!-- Tablet / Web UI Mockup -->
           <div class="mock-tablet-window card">
@@ -198,34 +269,44 @@ const pricingTiers = [
 
             <div class="tablet-tasks-list">
               <div class="tablet-task-row">
-                <span class="t-icon">📖</span>
+                <span class="t-task-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#531D5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                </span>
                 <span class="t-name">Practice vocabulary</span>
                 <span class="t-day">Monday</span>
                 <span class="t-badge done">Done</span>
               </div>
               <div class="tablet-task-row">
-                <span class="t-icon">✍️</span>
+                <span class="t-task-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00A8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                </span>
                 <span class="t-name">Write an essay</span>
                 <span class="t-day">Today</span>
-                <span class="t-link">Start ›</span>
+                <span class="t-link">Start &rsaquo;</span>
               </div>
               <div class="tablet-task-row">
-                <span class="t-icon">📋</span>
-                <span class="t-name">Lesson 4. Exercises 4–8</span>
+                <span class="t-task-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00A8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </span>
+                <span class="t-name">Lesson 4: Exercises 4–8</span>
                 <span class="t-day">Today</span>
-                <span class="t-link">Start ›</span>
+                <span class="t-link">Start &rsaquo;</span>
               </div>
               <div class="tablet-task-row">
-                <span class="t-icon">📖</span>
+                <span class="t-task-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#531D5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                </span>
                 <span class="t-name">Read "Der kleine Prinz"</span>
                 <span class="t-day">Wednesday</span>
-                <span class="t-link">Start ›</span>
+                <span class="t-link">Start &rsaquo;</span>
               </div>
               <div class="tablet-task-row">
-                <span class="t-icon">💬</span>
+                <span class="t-task-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00A8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </span>
                 <span class="t-name">Speaking club: Hobbies</span>
                 <span class="t-day">Thursday</span>
-                <span class="t-link">Join ›</span>
+                <span class="t-link">Join &rsaquo;</span>
               </div>
             </div>
             <div class="tablet-footer-link">View full plan</div>
@@ -238,7 +319,9 @@ const pricingTiers = [
               <span class="p-sub">Vocabulary</span>
               <h3>Haus</h3>
               <span class="p-trans">house</span>
-              <span class="p-audio">🔊</span>
+              <span class="p-audio">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00A8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+              </span>
 
               <div class="phone-score-box">
                 <span class="score-label">Your score</span>
@@ -254,60 +337,76 @@ const pricingTiers = [
       </div>
     </section>
 
-    <!-- SECTION 4: A1 IS FREE. KEEP GROWING. (IMAGE 5) -->
-    <section class="section pricing-ladder-section" id="pricing">
-      <div class="container pricing-ladder-card card">
-        <div class="ladder-left">
-          <div class="sprout-icon-circle">🌱</div>
-          <div>
-            <h3>A1 is free.<br />Keep growing.</h3>
-            <p>Start for free, then unlock more as you advance. No subscriptions — just fair, one-time course pricing.</p>
+    <!-- SECTION 4: COURSE PRICING CARDS -->
+    <section class="section pricing-cards-section" id="pricing">
+      <div class="container">
+        <div class="section-title-center pricing-title-center">
+          <div class="sprout-badge">
+            <span class="sprout-icon">🌱</span>
+            <span>A1 is free. Keep growing.</span>
           </div>
-        </div>
-
-        <div class="ladder-tiers-row">
-          <div class="tier-col" v-for="t in pricingTiers" :key="t.level">
-            <span class="tier-level-name">{{ t.level }}</span>
-            <strong class="tier-price-val" :class="{ 'text-free': t.isFree }">{{ t.price }}</strong>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 5: TESTIMONIAL & SOCIAL PROOF (IMAGE 5) -->
-    <section class="section proof-section">
-      <div class="container proof-grid">
-        <div class="quote-card card">
-          <div class="quote-symbol">“</div>
-          <p class="quote-text">
-            Finally, a platform that teaches me in my language and understands what I need.
+          <h2>Start for free, then unlock more as you advance.</h2>
+          <p class="pricing-lead-text">
+            No subscriptions — just fair, one-time course pricing.
           </p>
-          <div class="quote-author">
-            <span class="author-avatar">👨</span>
-            <div>
-              <strong>Dilshod</strong>
-              <span>Uzbekistan</span>
-            </div>
-          </div>
         </div>
 
-        <div class="partners-card card">
-          <span class="partners-label">Trusted by learners and schools</span>
-          <div class="partners-logos-row">
-            <div class="partner-badge goethe">GOETHE INSTITUT</div>
-            <div class="partner-badge klett">Klett</div>
-            <div class="partner-badge hueber">Hueber</div>
-            <div class="partner-badge cornelsen">Cornelsen</div>
+        <div class="pricing-cards-grid">
+          <div
+            v-for="card in pricingCards"
+            :key="card.id"
+            class="pricing-course-card card"
+            :class="{ 'featured-tier': card.isPrimary }"
+          >
+            <div class="card-body-top">
+              <div class="card-header-block">
+                <div class="title-row">
+                  <h3 class="course-tier-title">{{ card.title }}</h3>
+                  <span v-if="card.isPrimary" class="tier-pill-badge">Free Forever</span>
+                </div>
+                <span
+                  class="course-lessons-badge"
+                  :class="{ 'highlight-badge': card.isSubtitleHighlight }"
+                >
+                  {{ card.subtitle }}
+                </span>
+              </div>
+
+              <div class="card-price-row">
+                <span class="price-val" :class="{ 'price-free': card.isPrimary }">{{ card.price }}</span>
+                <span class="price-period">{{ card.period }}</span>
+              </div>
+
+              <ul class="course-features-list">
+                <li v-for="(feat, idx) in card.features" :key="idx" class="feature-bullet-item">
+                  <span class="check-icon">✓</span>
+                  <div class="feature-content">
+                    <strong v-if="feat.bold" class="feature-bold">{{ feat.bold }} </strong>
+                    <span class="feature-regular">{{ feat.text }}</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <RouterLink
+              :to="card.buttonLink"
+              class="btn card-cta-btn"
+              :class="card.isPrimary ? 'btn-primary' : 'btn-tier-select'"
+            >
+              {{ card.buttonText }} {{ card.isPrimary ? '&rarr;' : '' }}
+            </RouterLink>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 6: BOTTOM EXPLORE BANNER (IMAGE 5) -->
+    <!-- SECTION 5: BOTTOM EXPLORE BANNER -->
     <section class="section bottom-banner-section">
       <div class="container bottom-cta-bar card">
         <div class="cta-bar-left">
-          <span class="globe-big">🌐</span>
+          <div class="globe-big">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00A8CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          </div>
           <div>
             <h3>Many languages. One personal experience.</h3>
             <p>LingoLaab is growing together with learners around the world.</p>
@@ -315,7 +414,7 @@ const pricingTiers = [
         </div>
 
         <RouterLink to="/register" class="btn btn-primary btn-explore-cta">
-          Explore courses →
+          Explore courses &rarr;
         </RouterLink>
       </div>
     </section>
@@ -328,7 +427,7 @@ const pricingTiers = [
   color: var(--color-text-body);
 }
 
-/* HERO SECTION (MATCHING IMAGE 5) */
+/* HERO SECTION */
 .hero-section {
   padding: 64px 0 52px;
   background: #FFFFFF;
@@ -384,7 +483,14 @@ const pricingTiers = [
 }
 
 .play-circle {
-  font-size: 1.1rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-brand-cyan-light);
+  color: var(--color-brand-cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-trust-row {
@@ -405,10 +511,12 @@ const pricingTiers = [
 }
 
 .t-icon {
-  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* HERO RIGHT VISUAL STAGE (IMAGE 5) */
+/* HERO RIGHT VISUAL STAGE */
 .hero-right-visual {
   display: flex;
   justify-content: center;
@@ -451,12 +559,14 @@ const pricingTiers = [
   box-shadow: 0 16px 36px rgba(46, 16, 101, 0.08);
 }
 
-.learner-art-emoji {
-  font-size: 7rem;
-  line-height: 1;
+.brand-mascot-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1.1);
 }
 
-/* FLOATING UI CHIPS (IMAGE 5) */
+/* FLOATING UI CHIPS */
 .floating-chip {
   position: absolute;
   background: #FFFFFF;
@@ -487,16 +597,9 @@ const pricingTiers = [
 }
 
 .speaker-icon {
-  font-size: 0.95rem;
-}
-
-.chip-streak {
-  bottom: 20px;
-  right: 10px;
-  background: rgba(245, 158, 11, 0.12);
-  border-color: rgba(245, 158, 11, 0.3);
-  color: #D97706;
-  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .floating-card {
@@ -571,7 +674,7 @@ const pricingTiers = [
   border-radius: var(--radius-full);
 }
 
-/* SECTION 2: 6 FEATURES ROW (IMAGE 5) */
+/* SECTION 2: 6 FEATURES ROW */
 .features-row-section {
   padding: 60px 0;
   background: #FAFAFA;
@@ -599,20 +702,31 @@ const pricingTiers = [
   flex-direction: column;
   align-items: center;
   text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.six-feature-card:hover {
+  transform: translateY(-3px);
+}
+
+.six-feature-card:hover .feature-icon-square {
+  border-color: var(--color-brand-cyan);
+  box-shadow: 0 6px 16px rgba(0, 168, 204, 0.16);
+  transform: scale(1.05);
 }
 
 .feature-icon-square {
-  width: 54px;
-  height: 54px;
+  width: 56px;
+  height: 56px;
   border-radius: var(--radius-md);
   background: #FFFFFF;
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
   margin-bottom: 14px;
+  transition: all 0.2s ease;
 }
 
 .six-feature-card h3 {
@@ -629,7 +743,7 @@ const pricingTiers = [
   margin: 0;
 }
 
-/* SECTION 3: ADAPT SECTION (IMAGE 5) */
+/* SECTION 3: ADAPT SECTION */
 .adapt-section {
   padding: 80px 0;
 }
@@ -650,13 +764,14 @@ const pricingTiers = [
 .adapt-sub {
   font-size: 1.05rem;
   color: var(--color-text-muted);
-  margin-bottom: 28px;
+  margin-bottom: 24px;
+  line-height: 1.5;
 }
 
 .checklist-items {
   list-style: none;
   padding: 0;
-  margin: 0 0 28px;
+  margin: 0 0 32px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -667,85 +782,106 @@ const pricingTiers = [
   align-items: center;
   gap: 10px;
   font-size: 0.95rem;
-  font-weight: 600;
   color: var(--color-text);
+  font-weight: 600;
 }
 
 .check-green {
-  color: var(--color-action-success);
+  color: #10B981;
   font-weight: 800;
 }
 
 .link-arrow-text {
-  font-weight: 700;
   color: var(--color-brand-cyan);
-  text-decoration: none;
+  font-weight: 700;
   font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.link-arrow-text:hover {
+  text-decoration: underline;
 }
 
 /* DUAL DEVICE MOCKUP */
 .adapt-devices-stage {
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .mock-tablet-window {
   width: 100%;
   max-width: 440px;
   background: #FFFFFF;
-  border-radius: var(--radius-md);
-  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
   box-shadow: 0 20px 40px rgba(46, 16, 101, 0.08);
-  padding: 18px;
 }
 
 .tablet-header {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding-bottom: 12px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--color-border);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
-.dot-red { width: 8px; height: 8px; border-radius: 50%; background: #EF4444; }
-.dot-yellow { width: 8px; height: 8px; border-radius: 50%; background: #F59E0B; }
-.dot-green { width: 8px; height: 8px; border-radius: 50%; background: #10B981; }
+.dot-red, .dot-yellow, .dot-green {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.dot-red { background: #EF4444; }
+.dot-yellow { background: #F59E0B; }
+.dot-green { background: #10B981; }
 
 .window-title {
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.78rem;
   color: var(--color-text-muted);
-  margin-left: 8px;
+  font-weight: 600;
+  margin-left: 6px;
 }
 
 .tablet-tasks-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .tablet-task-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px;
+  padding: 8px 10px;
   border-radius: var(--radius-sm);
   background: var(--color-surface-hover);
   font-size: 0.8rem;
 }
 
-.t-name { flex: 1; font-weight: 600; }
-.t-day { color: var(--color-text-muted); font-size: 0.72rem; }
+.t-task-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.t-name {
+  font-weight: 600;
+  flex: 1;
+}
+
+.t-day {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
 
 .t-badge.done {
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  background: #D1FAE5;
-  color: #065F46;
+  background: var(--color-action-success-light);
+  color: var(--color-action-success);
+  font-size: 0.68rem;
   font-weight: 700;
-  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .t-link {
@@ -799,7 +935,13 @@ const pricingTiers = [
 }
 
 .p-trans { font-size: 0.75rem; color: var(--color-text-muted); display: block; }
-.p-audio { font-size: 0.85rem; margin: 4px 0; display: inline-block; }
+.p-audio { 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px 0;
+  color: var(--color-brand-cyan);
+}
 
 .phone-score-box {
   background: var(--color-surface-hover);
@@ -813,161 +955,215 @@ const pricingTiers = [
 .score-circle small { font-size: 0.65rem; color: var(--color-text-muted); }
 .score-status { font-size: 0.62rem; color: #2563EB; font-weight: 700; display: block; }
 
-/* SECTION 4: A1 IS FREE. KEEP GROWING. (IMAGE 5) */
-.pricing-ladder-section {
-  padding: 40px 0 60px;
+/* SECTION 4: COURSE PRICING CARDS */
+.pricing-cards-section {
+  padding: 50px 0 70px;
 }
 
-.pricing-ladder-card {
-  padding: 36px 44px;
-  background: #FAFAFA;
+.pricing-title-center {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.sprout-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: var(--color-action-success-light);
+  color: var(--color-action-success);
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.sprout-icon {
+  font-size: 1.15rem;
+}
+
+.pricing-title-center h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--color-text);
+  margin: 0 0 10px;
+  font-weight: 800;
+}
+
+.pricing-lead-text {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.pricing-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.pricing-course-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
   border-radius: var(--radius-lg);
+  padding: 32px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-card);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.pricing-course-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-brand-cyan);
+  box-shadow: 0 18px 36px -8px rgba(46, 16, 101, 0.12);
+}
+
+.pricing-course-card.featured-tier {
+  border-color: var(--color-brand-cyan);
+  box-shadow: 0 14px 32px -6px rgba(0, 168, 204, 0.16);
+}
+
+.card-body-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header-block {
+  margin-bottom: 22px;
+}
+
+.title-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 40px;
+  gap: 8px;
+  margin-bottom: 6px;
 }
 
-.ladder-left {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  max-width: 460px;
-}
-
-.sprout-icon-circle {
-  font-size: 2.5rem;
-}
-
-.ladder-left h3 {
-  font-size: 1.4rem;
-  margin: 0 0 6px;
-}
-
-.ladder-left p {
+.course-tier-title {
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: var(--color-text);
   margin: 0;
-  font-size: 0.88rem;
+  letter-spacing: -0.01em;
+}
+
+.tier-pill-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-cyan-light);
+  color: var(--color-brand-cyan);
+}
+
+.course-lessons-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--color-text-muted);
-  line-height: 1.45;
+  display: block;
 }
 
-.ladder-tiers-row {
-  display: flex;
-  gap: 32px;
+.course-lessons-badge.highlight-badge {
+  color: var(--color-action-success);
+  font-weight: 700;
 }
 
-.tier-col {
+.card-price-row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: baseline;
   gap: 6px;
+  margin-bottom: 26px;
 }
 
-.tier-level-name {
-  font-size: 0.95rem;
+.price-val {
+  font-size: 2.75rem;
   font-weight: 800;
   color: var(--color-text);
-}
-
-.tier-price-val {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--color-text);
+  line-height: 1;
   font-family: var(--font-heading);
 }
 
-.text-free {
+.price-val.price-free {
   color: var(--color-action-success);
 }
 
-/* SECTION 5: PROOF & TESTIMONIAL (IMAGE 5) */
-.proof-section {
-  padding: 40px 0 60px;
+.price-period {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
 }
 
-.proof-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.3fr;
-  gap: 24px;
-}
-
-.quote-card {
-  padding: 28px;
+.course-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px;
   display: flex;
   flex-direction: column;
+  gap: 14px;
 }
 
-.quote-symbol {
-  font-size: 2.2rem;
-  color: var(--color-brand-cyan);
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.quote-text {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 18px;
-  line-height: 1.5;
-}
-
-.quote-author {
+.feature-bullet-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
-  margin-top: auto;
+  font-size: 0.86rem;
+  line-height: 1.45;
 }
 
-.author-avatar {
-  font-size: 1.5rem;
+.check-icon {
+  color: var(--color-action-success);
+  font-weight: 800;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  margin-top: 1px;
 }
 
-.quote-author strong {
-  display: block;
-  font-size: 0.88rem;
-}
-
-.quote-author span {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-}
-
-.partners-card {
-  padding: 28px;
+.feature-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
-.partners-label {
-  font-size: 0.85rem;
+.feature-bold {
+  color: var(--color-text);
   font-weight: 700;
+}
+
+.feature-regular {
   color: var(--color-text-muted);
-  margin-bottom: 20px;
 }
 
-.partners-logos-row {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  flex-wrap: wrap;
+.card-cta-btn {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  margin-top: auto;
+  padding: 12px 18px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
 }
 
-.partner-badge {
-  padding: 8px 16px;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.03em;
+.btn-tier-select {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1.5px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
 }
 
-.partner-badge.goethe { background: #84CC16; color: #FFFFFF; }
-.partner-badge.klett { background: #0284C7; color: #FFFFFF; }
-.partner-badge.hueber { background: #DC2626; color: #FFFFFF; }
-.partner-badge.cornelsen { background: #EF4444; color: #FFFFFF; }
+.btn-tier-select:hover {
+  background: var(--color-brand-cyan);
+  color: #FFFFFF;
+  border-color: var(--color-brand-cyan);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px var(--color-brand-cyan-glow);
+}
 
-/* SECTION 6: BOTTOM BANNER (IMAGE 5) */
+/* SECTION 5: BOTTOM BANNER */
 .bottom-banner-section {
   padding: 0 0 80px;
 }
@@ -990,7 +1186,9 @@ const pricingTiers = [
 }
 
 .globe-big {
-  font-size: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cta-bar-left h3 {
@@ -1012,11 +1210,15 @@ const pricingTiers = [
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
-  .hero-layout, .adapt-layout, .pricing-ladder-card, .proof-grid {
+  .hero-layout, .adapt-layout {
     grid-template-columns: 1fr;
   }
   .six-features-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .pricing-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
   }
   .bottom-cta-bar {
     flex-direction: column;
@@ -1031,8 +1233,8 @@ const pricingTiers = [
   .six-features-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .ladder-tiers-row {
-    flex-wrap: wrap;
+  .pricing-cards-grid {
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 }

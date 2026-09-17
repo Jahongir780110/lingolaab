@@ -18,7 +18,6 @@ const menuOpen = ref(false)
         <RouterLink to="/dashboard" @click="menuOpen = false">Library</RouterLink>
         <RouterLink to="/dashboard" @click="menuOpen = false">Speaking</RouterLink>
         <RouterLink :to="{ path: '/', hash: '#pricing' }" @click="menuOpen = false">Pricing</RouterLink>
-        <RouterLink :to="{ path: '/', hash: '#pricing' }" @click="menuOpen = false">For Schools</RouterLink>
         <RouterLink to="/login" @click="menuOpen = false" class="login-link">Log in</RouterLink>
         <RouterLink to="/register" @click="menuOpen = false" class="btn btn-primary nav-cta">Start learning for free</RouterLink>
       </nav>
