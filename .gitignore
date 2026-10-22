@@ -1,0 +1,14 @@
+# Local dependencies, builds, and generated working files
+node_modules/
+dist/
+output/
+tmp/
+*.log
+.DS_Store
+Thumbs.db
+
+# Local credentials and environment overrides
+.env
+.env.*
+!.env.example
+*.local
