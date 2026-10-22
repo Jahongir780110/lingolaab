@@ -1,30 +1,51 @@
 <script setup>
-import { ref } from 'vue'
-import AppLogo from './AppLogo.vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import fullLogo from '../assets/full_logo.png'
+import { useLocale } from '../i18n'
 
+const { t, localizedPath } = useLocale()
+
+const route = useRoute()
 const menuOpen = ref(false)
+const links = [
+  { label: 'Exercises', to: '/exercises' },
+  { label: 'Practice', to: '/practice' },
+  { label: 'Dashboard', to: '/dashboard' },
+  { label: 'Writing', to: '/writing' },
+  { label: 'Library', to: '/library' },
+  { label: 'Podcasts', to: '/podcasts' },
+  { label: 'Registration', to: '/register' }
+]
+
+watch(() => route.fullPath, () => { menuOpen.value = false })
 </script>
 
 <template>
-  <header class="site-header">
+  <header class="site-header" @keydown.esc="menuOpen = false">
     <div class="container bar">
-      <RouterLink to="/" class="brand-link">
-        <AppLogo :size="38" layout="horizontal" />
+      <RouterLink :to="localizedPath('/')" class="brand-link" :aria-label="t('home')" @click="menuOpen = false">
+        <img :src="fullLogo" alt="LingoLaab" class="brand-logo" />
       </RouterLink>
-
-      <nav class="nav" :class="{ open: menuOpen }">
-        <RouterLink :to="{ path: '/', hash: '#how-it-works' }" @click="menuOpen = false">How it works</RouterLink>
-        <RouterLink :to="{ path: '/', hash: '#courses' }" @click="menuOpen = false">Courses</RouterLink>
-        <RouterLink to="/dashboard" @click="menuOpen = false">Library</RouterLink>
-        <RouterLink to="/dashboard" @click="menuOpen = false">Speaking</RouterLink>
-        <RouterLink :to="{ path: '/', hash: '#pricing' }" @click="menuOpen = false">Pricing</RouterLink>
-        <RouterLink to="/login" @click="menuOpen = false" class="login-link">Log in</RouterLink>
-        <RouterLink to="/register" @click="menuOpen = false" class="btn btn-primary nav-cta">Start learning for free</RouterLink>
-      </nav>
-
-      <button class="burger" @click="menuOpen = !menuOpen" aria-label="Toggle menu">
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-controls="primary-navigation"
+        :aria-expanded="menuOpen"
+        :aria-label="t(menuOpen ? 'closeNav' : 'openNav')"
+        @click="menuOpen = !menuOpen"
+      >
         <span></span><span></span><span></span>
       </button>
+      <nav id="primary-navigation" class="nav" :class="{ open: menuOpen }" :aria-label="t('primaryNav')">
+        <RouterLink
+          v-for="link in links"
+          :key="link.to"
+          :to="localizedPath(link.to)"
+          :class="{ 'registration-link': link.to === '/register' }"
+          @click="menuOpen = false"
+        >{{ t(link.label.toLowerCase()) }}</RouterLink>
+      </nav>
     </div>
   </header>
 </template>
@@ -34,97 +55,57 @@ const menuOpen = ref(false)
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
+  background: var(--color-base);
   border-bottom: 1px solid var(--color-border);
-  box-shadow: 0 2px 12px rgba(46, 16, 101, 0.03);
 }
-
 .bar {
+  min-height: 104px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 74px;
-}
-
-.brand-link {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  transition: transform 0.15s ease;
-}
-
-.brand-link:hover {
-  transform: scale(1.02);
-}
-
-.nav {
-  display: flex;
-  align-items: center;
   gap: 32px;
 }
-
+.brand-link { display: flex; flex-shrink: 0; padding: 12px 0; }
+.brand-logo { display: block; width: 112px; height: auto; }
+.nav { display: flex; align-items: center; gap: 24px; }
 .nav a {
-  text-decoration: none;
+  padding: 12px 0;
+  color: var(--color-text);
+  font-size: 0.9rem;
   font-weight: 600;
-  color: var(--color-text-body);
-  font-size: 0.95rem;
-  transition: color 0.15s;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
 }
-
-.nav a:hover {
+.nav a:hover, .nav a.router-link-active { color: var(--color-brand-cyan); border-bottom-color: var(--color-brand-cyan); }
+.nav .registration-link {
+  padding: 10px 18px;
+  border: 1px solid var(--color-brand-cyan);
+  border-radius: var(--radius-full);
   color: var(--color-brand-cyan);
 }
-
-.login-link {
-  color: var(--color-accent-purple) !important;
-  font-weight: 700 !important;
-}
-
-.nav-cta {
-  padding: 10px 22px;
-  font-size: 0.9rem;
-}
-
-.burger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: transparent;
-  padding: 8px;
-  border-radius: 6px;
-}
-
-.burger span {
-  width: 24px;
-  height: 2px;
-  background: var(--color-text);
-  border-radius: 2px;
-}
-
-@media (max-width: 860px) {
+.nav .registration-link:hover, .nav .registration-link.router-link-active { background: var(--color-brand-cyan-light); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--color-brand-cyan); outline-offset: 5px; }
+.menu-toggle { display: none; padding: 12px; background: transparent; border-radius: var(--radius-sm); }
+.menu-toggle span { width: 24px; height: 2px; background: var(--color-text); border-radius: 2px; }
+@media (max-width: 960px) {
+  .bar { min-height: 96px; }
+  .brand-logo { width: 100px; }
+  .menu-toggle { display: flex; flex-direction: column; gap: 5px; }
   .nav {
+    display: none;
     position: absolute;
-    top: 74px;
+    top: 100%;
     left: 0;
     right: 0;
-    background: #ffffff;
-    flex-direction: column;
-    align-items: stretch;
-    padding: 20px 24px 28px;
+    padding: 16px 24px 24px;
+    background: var(--color-base);
     border-bottom: 1px solid var(--color-border);
     box-shadow: var(--shadow-card);
-    display: none;
-    gap: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
   }
-  .nav.open {
-    display: flex;
-  }
-  .nav a {
-    padding: 8px 0;
-  }
-  .burger {
-    display: flex;
-  }
+  .nav.open { display: flex; }
+  .nav .registration-link { text-align: center; margin-top: 8px; }
 }
 </style>
